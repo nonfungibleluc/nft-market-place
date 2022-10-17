@@ -1,2 +1,2 @@
-# nft-market-place
-Learning Web3 Development by building an NFT Marketplace
+# Building an NFT Market Place
+The goal of this repo is to track and document my evolution in web3 development ! 
