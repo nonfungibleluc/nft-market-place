@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import './ERC165.sol';
+import './interfaces/IERC721.sol';
+
+
     /*
 
     building out the minting function
@@ -12,18 +16,7 @@ pragma solidity ^0.8.0;
 
     */
 
-contract ERC721 {
-
-    event Transfer(
-        address indexed from,
-        address indexed to,
-        uint256 indexed tokenId);
-    
-    event Approval(
-        address indexed owner,
-        address indexed approved,
-        uint256 indexed tokenId);
-
+contract ERC721 is ERC165, IERC721{ 
     // mapping in solidity creates a hash table of key pair values
 
     // Mapping from token id to the owner
@@ -35,14 +28,18 @@ contract ERC721 {
     // Mapping from token id to approved addresses
     mapping(uint256 => address) private _tokenApprovals;
 
+    constructor () {
+        _registerInterface(bytes4(keccak256('balanceOf(bytes4)')^keccak256('ownerOf(bytes4)')^keccak256('transferFrom(bytes4)')));
+    }
+
     // Count all NFTs assigned to an owner
-    function balanceOf(address _owner) public view returns(uint256) {
+    function balanceOf(address _owner) public override view returns(uint256) {
         require(_owner != address(0), 'ERC721: Owner query for non-existant token');
         return _ownedTokensCount[_owner];
     }
 
     // Find the Owner of a token
-    function ownerOf(uint256 _tokenId) public view returns(address){
+    function ownerOf(uint256 _tokenId) public view  override returns(address){
         address owner = _tokenOwner[_tokenId];
         require(owner != address(0), 'ERC721: Owner query for non-existant token');
         return owner;
@@ -76,7 +73,7 @@ contract ERC721 {
     /// @param _to The new owner
     /// @param _tokenId The NFT to transfer
 
-    function _transferFrom(address _from, address _to, uint256 _tokenId) internal {
+    function _transferFrom(address _from, address _to, uint256 _tokenId)  internal {
         require(_to != address(0), 'Error - ERC721 Transfer to the zero address');
         require(_from == ownerOf(_tokenId), 'Error - ERC721 Trying to transfer a token the address does not own');
         require(isApprovedOrOwner(msg.sender, _tokenId));
@@ -91,7 +88,7 @@ contract ERC721 {
         emit Transfer(_from, _to, _tokenId);
     }
 
-    function transferFrom(address _from, address _to, uint256 _tokenId) public {
+    function transferFrom(address _from, address _to, uint256 _tokenId) override public {
         _transferFrom(_from, _to, _tokenId);
     }
 
