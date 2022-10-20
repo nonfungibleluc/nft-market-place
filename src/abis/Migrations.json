@@ -2529,12 +2529,12 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0x3084ae93900c0D75CFb90FccaeA1d4D2AC9B95E7",
-      "transactionHash": "0x6afa7b83b624d92b3c65cd5316ebb04033da7757adee3877d0b4b7e6021fc394"
+      "address": "0x88F1c8BaAe4d6d448f7D18165cd4F219CA2FA1D6",
+      "transactionHash": "0x156d17071fce0a560ea5b0b9a3a38ffde9d9941ef6baa3f7bb9895c492f26168"
     }
   },
   "schemaVersion": "3.4.9",
-  "updatedAt": "2022-10-18T23:12:52.311Z",
+  "updatedAt": "2022-10-19T21:50:37.609Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
